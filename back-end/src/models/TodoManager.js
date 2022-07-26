@@ -2,13 +2,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('./sequelize');
 
 const TodoShema = {
-  todo: {
-    title: DataTypes.STRING,
-    allowNull: false,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    default: () => new Date(),
+  title: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   dueDate: {
@@ -18,13 +13,13 @@ const TodoShema = {
   isDone: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
-    default: false,
+    defaultValue: false,
   },
   description: {
     type: DataTypes.STRING,
     allowNull: false,
   },
 };
-const TodoModel = sequelize.define('Todo', TodoShema);
+const TodoModel = sequelize.define('todo', TodoShema);
 
 module.exports = TodoModel;
