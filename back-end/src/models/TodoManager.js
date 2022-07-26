@@ -1,9 +1,17 @@
-class TodoManager {
-  static table = 'todo';
+const { DataTypes } = require('sequelize');
+const sequelize = require('./sequelize');
 
-  findAll() {
-    return this.connection.query(`select *from ${TodoManager.table}`);
-  }
-}
+const TodoShema = {
+  todo: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  done: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    default: false,
+  },
+};
+const TodoModel = sequelize.define('Todo', TodoShema);
 
-module.exports = TodoManager;
+module.exports = TodoModel;

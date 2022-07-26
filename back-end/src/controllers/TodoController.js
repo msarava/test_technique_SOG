@@ -1,9 +1,8 @@
-const models = require('../models/TodoManager');
+const Todomodel = require('../models/TodoManager');
 
 class TodoController {
-  static getAll = (req, res) => {
-    models.item
-      .findAll()
+  static getAll = async (req, res) => {
+    Todomodel.findAll()
       .then((result) => {
         res.send(result);
       })
