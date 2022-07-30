@@ -17,8 +17,10 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import { DateTime } from 'luxon';
 import '../styles/Todo.css';
+import { getTodos, updateTodo } from '../../services/api.services';
+import { bgcolor } from '@mui/system';
 
-function Todo({ todo }) {
+function Todo({ todo, setTodos, todos }) {
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -39,10 +41,19 @@ function Todo({ todo }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const [checkStatus, setCheckStatus] = useState(todo.isDone);
 
+  const handleCheckChange = async () => {
+    await updateTodo({ ...todo, isDone: !checkStatus }, todo.id).then(
+      async () => {
+        setCheckStatus(!checkStatus);
+        setTodos(await getTodos());
+      }
+    );
+  };
   return (
     <div className='todo-container'>
-      <Card sx={{ minWidth: 500 }}>
+      <Card sx={{ minWidth: 500, bgcolor: todo.isDone ?'gray':'inherit' }}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: 'grey' }} aria-label='recipe'>
@@ -54,15 +65,24 @@ function Todo({ todo }) {
               control={
                 <Checkbox
                   sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
-                  icon={<CheckBoxIcon />}
-                  checkedIcon={<CheckBoxOutlineBlankIcon />}
+                  checkedIcon={<CheckBoxIcon />}
+                  icon={<CheckBoxOutlineBlankIcon />}
+                  checked={checkStatus}
+                  onChange={handleCheckChange}
                 />
               }
               label={todo.isDone ? 'done' : 'to do'}
             />
           }
           title={
-            <Typography sx={{ fontWeight: 'bold' }}>{todo.title}</Typography>
+            <Typography
+              sx={{
+                textDecoration: todo.isDone ? `line-through` : 'inherit',
+                fontWeight: 'bold',
+              }}
+            >
+              {todo.title}
+            </Typography>
           }
           subheader={`created ${creationDate}`}
         />

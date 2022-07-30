@@ -20,3 +20,9 @@ export async function createTodo(newTodo) {
   const results = Api.post(url, newTodo).then((response) => response.data);
   return results;
 }
+
+export async function updateTodo(updateTodo, id) {
+  const url = `/todo/${id}`;
+  const results = Api.put(url, updateTodo).then((response) => response.data);
+  return results;
+}
