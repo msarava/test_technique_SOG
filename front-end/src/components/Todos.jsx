@@ -26,11 +26,22 @@ function Todos() {
           <AddCircleIcon /> Create new ToDo
         </IconButton>
       )}
-      {showForm && <TodoForm setShowForm={setShowForm} showForm={showForm} />}
+      {showForm && (
+        <TodoForm
+          setShowForm={setShowForm}
+          showForm={showForm}
+          todos={todos}
+          setTodos={setTodos}
+        />
+      )}
       {todoList
+        .sort((a, b) =>
+          a.dueDate > b.dueDate ? 1 : b.dueDate > a.dueDate ? -1 : 0
+        )
         .sort((a, b) =>
           a.isDone > b.isDone ? 1 : b.isDone > a.isDone ? -1 : 0
         )
+
         .map((todo) => (
           <Todo key={todo.id} todo={todo} todos={todos} setTodos={setTodos} />
         ))}

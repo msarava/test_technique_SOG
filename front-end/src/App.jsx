@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { getTodos } from '../services/api.services';
 import TodoContext from '../services/auth.services';
 import './styles/App.css';
 import Layout from './components/Layout';
 import Todos from './components/Todos';
+import TodoDetails from './components/TodoDetails';
 
 function App() {
   const all = useContext(TodoContext);
@@ -19,7 +21,12 @@ function App() {
   return (
     <TodoContext.Provider value={{ todos, setTodos }}>
       <Layout>
-        <Todos />
+        <Router>
+          <Routes>
+            <Route path='/' element={<Todos />} />
+            <Route path='/:id' element={<TodoDetails />} />
+          </Routes>
+        </Router>
       </Layout>
     </TodoContext.Provider>
   );

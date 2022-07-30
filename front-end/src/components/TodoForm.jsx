@@ -19,14 +19,7 @@ import { DateTime } from 'luxon';
 import '../styles/Todo.css';
 import { createTodo } from '../../services/api.services';
 
-export default function TodoForm({ setShowForm, showForm }) {
-  // const creationDate = DateTime.fromISO(todo.createdAt).toLocaleString(
-  //   DateTime.DATETIME_MED
-  // );
-  // const dueDate = DateTime.fromISO(todo.dueDate).toLocaleString(
-  //   DateTime.DATETIME_MED
-  // );
-
+export default function TodoForm({ setShowForm, showForm, setTodos, todos }) {
   const [newTodo, setNewTodo] = useState({
     title: '',
     dueDate: '',
@@ -39,7 +32,8 @@ export default function TodoForm({ setShowForm, showForm }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    createTodo(newTodo).then(() => console.log('registered'));
+    createTodo(newTodo).then((createdTodo) => setTodos([...todos, createdTodo]));
+    setShowForm(!showForm);
   };
   return (
     <div className='todo-container'>
