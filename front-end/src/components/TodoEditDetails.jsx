@@ -40,8 +40,7 @@ function TodoEditDetails() {
   const navigate = useNavigate();
   const handleSave = (event) => {
     event.preventDefault();
-    updateTodo(newTodo, id);
-    navigate(`/test_technique_Sog/${id}`);
+    updateTodo(newTodo, id).then(() => navigate(`/test_technique_Sog/${id}`));
   };
   return (
     <div>
