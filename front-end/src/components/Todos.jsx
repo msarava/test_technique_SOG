@@ -7,6 +7,7 @@ import { IconButton } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function Todos() {
   const { todos, setTodos } = useContext(TodoContext);
@@ -43,7 +44,9 @@ function Todos() {
         )
 
         .map((todo) => (
-          <Todo key={todo.id} todo={todo} todos={todos} setTodos={setTodos} />
+         
+            <Todo key={todo.id} todo={todo} todos={todos} setTodos={setTodos} />
+        
         ))}
     </div>
   );

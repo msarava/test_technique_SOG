@@ -15,6 +15,11 @@ export async function getTodos() {
   return results;
 }
 
+export async function getOneTodo(id) {
+  const url = `/todo/${id}`;
+  const results = Api.get(url).then((response) => response.data);
+  return results;
+}
 export async function createTodo(newTodo) {
   const url = '/todo';
   const results = Api.post(url, newTodo).then((response) => response.data);

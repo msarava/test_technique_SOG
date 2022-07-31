@@ -8,17 +8,16 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState } from 'react';
-import { Checkbox, FormControlLabel } from '@mui/material';
+import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import { DateTime } from 'luxon';
 import '../styles/Todo.css';
 import { getTodos, updateTodo } from '../../services/api.services';
-import { bgcolor } from '@mui/system';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 function Todo({ todo, setTodos, todos }) {
   const ExpandMore = styled((props) => {
@@ -53,12 +52,12 @@ function Todo({ todo, setTodos, todos }) {
   };
   return (
     <div className='todo-container'>
-      <Card sx={{ minWidth: 500, bgcolor: todo.isDone ?'gray':'inherit' }}>
-        <CardHeader
+      <Card sx={{ minWidth: 500, bgcolor: todo.isDone ? 'gray' : 'inherit' }}>
+        <CardHeader sx={{padding:'0.2'}}
           avatar={
-            <Avatar sx={{ bgcolor: 'grey' }} aria-label='recipe'>
-              <Typography> ToDo </Typography>
-            </Avatar>
+            <IconButton href={`/${todo.id}`}>
+              <OpenInNewIcon />
+            </IconButton>
           }
           action={
             <FormControlLabel
@@ -71,7 +70,7 @@ function Todo({ todo, setTodos, todos }) {
                   onChange={handleCheckChange}
                 />
               }
-              label={todo.isDone ? 'done' : 'to do'}
+              label={todo.isDone ? 'Done' : 'To do'}
             />
           }
           title={
@@ -79,6 +78,7 @@ function Todo({ todo, setTodos, todos }) {
               sx={{
                 textDecoration: todo.isDone ? `line-through` : 'inherit',
                 fontWeight: 'bold',
+                fontSize: 20
               }}
             >
               {todo.title}
@@ -93,9 +93,6 @@ function Todo({ todo, setTodos, todos }) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label='add to favorites'>
-            <FavoriteIcon />
-          </IconButton>
           <IconButton aria-label='dueDate'>
             <ScheduleIcon />
             <Typography>Deadline : {dueDate}</Typography>

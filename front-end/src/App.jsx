@@ -24,7 +24,7 @@ function App() {
         <Router>
           <Routes>
             <Route path='/' element={<Todos />} />
-            <Route path='/:id' element={<TodoDetails />} />
+            <Route path='/:id' element={<TodoDetails todos={todos} />} />
           </Routes>
         </Router>
       </Layout>
