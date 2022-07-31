@@ -2,9 +2,9 @@ require('dotenv').config();
 
 const app = require('./src/app');
 
-const port = parseInt(process.env.APP_PORT ?? '5000', 10);
+const port = parseInt(process.env.PORT ?? '5000', 10);
 
-app.listen(process.env.APP_PORT|| '5000', (err) => {
+app.listen(process.env.PORT|| '5000', (err) => {
   if (err) {
     console.error('Something bad happened');
   } else {
