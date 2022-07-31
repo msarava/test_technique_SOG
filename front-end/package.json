@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -14,6 +16,7 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.2",
     "axios": "^0.27.2",
+    "gh-pages": "^4.0.0",
     "luxon": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
