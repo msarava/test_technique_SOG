@@ -1,25 +1,37 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState } from 'react';
 import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import { DateTime } from 'luxon';
 import '../styles/Todo.css';
-import { createTodo } from '../../services/api.services';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { getOneTodo, updateTodo } from '../../services/api.services';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import ClearIcon from '@mui/icons-material/Clear';
+import SaveIcon from '@mui/icons-material/Save';
 
-export default function TodoForm({ setShowForm, showForm, setTodos, todos }) {
+function TodoEditDetails() {
+  const { id } = useParams();
+  const [todo, setTodo] = useState({});
+  useEffect(() => {
+    getOneTodo(id).then((result) => setTodo(result));
+  }, []);
+  const creationDate = DateTime.fromISO(todo.createdAt).toLocaleString(
+    DateTime.DATETIME_MED
+  );
+  const dueDate = DateTime.fromISO(todo.dueDate).toLocaleString(
+    DateTime.DATETIME_MED
+  );
   const [newTodo, setNewTodo] = useState({
     title: '',
     dueDate: '',
@@ -29,16 +41,15 @@ export default function TodoForm({ setShowForm, showForm, setTodos, todos }) {
   const handleChange = (event) => {
     setNewTodo({ ...newTodo, [event.target.name]: event.target.value });
   };
-
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  const handleSave = (event) => {
     event.preventDefault();
-    createTodo(newTodo).then((createdTodo) => setTodos([...todos, createdTodo]));
-    setShowForm(!showForm);
+    updateTodo(newTodo, id);
+    navigate(`/${id}`);
   };
   return (
-    <div className='todo-container'>
-      <h2>New Todo</h2>
-      <Card sx={{ minWidth: 500 }}>
+    <div>
+      <Card sx={{ minWidth: 700, bgcolor: todo.isDone ? 'gray' : 'inherit' }}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: 'grey' }}>
@@ -51,12 +62,12 @@ export default function TodoForm({ setShowForm, showForm, setTodos, todos }) {
               value={newTodo.title}
               fullWidth
               sx={{ fontWeight: 'bold' }}
-              placeholder='Title'
+              placeholder={todo.title}
               onChange={handleChange}
             />
           }
+          subheader={`created ${creationDate}`}
         />
-
         <CardContent>
           <TextField
             name='description'
@@ -64,16 +75,19 @@ export default function TodoForm({ setShowForm, showForm, setTodos, todos }) {
             fullWidth
             multiline
             rows={4}
-            placeholder='Description'
+            placeholder={todo.description}
             onChange={handleChange}
           />
         </CardContent>
         <CardActions disableSpacing>
-          <ScheduleIcon />
+          <IconButton aria-label='dueDate'>
+            <ScheduleIcon />{' '}
+          </IconButton>
           <TextField
             name='dueDate'
             value={newTodo.dueDate}
             type='date'
+            placeholder=''
             helperText='Please enter the limit date'
             onChange={handleChange}
           />
@@ -86,27 +100,25 @@ export default function TodoForm({ setShowForm, showForm, setTodos, todos }) {
             fullWidth
             multiline
             rows={2}
-            placeholder='Add a note'
+            placeholder={todo.note}
             onChange={handleChange}
           />
         </CardContent>
-        <CardContent sx={{ textAlign: 'center' }}>
-          <Button
-            onClick={handleSubmit}
-            variant='contained'
-            sx={{ marginRight: '1rem' }}
-          >
-            Save
-          </Button>
-          <Button
-            onClick={() => setShowForm(!showForm)}
-            variant='outlined'
-            sx={{ marginLeft: '1rem' }}
-          >
-            Cancel
-          </Button>
-        </CardContent>
       </Card>
+      <IconButton
+        onClick={handleSave}
+        sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
+      >
+        <SaveIcon /> Save
+      </IconButton>{' '}
+      <IconButton
+        href={`/${id}`}
+        sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
+      >
+        <ClearIcon /> Cancel
+      </IconButton>
     </div>
   );
 }
+
+export default TodoEditDetails;

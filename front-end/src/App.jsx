@@ -7,6 +7,7 @@ import './styles/App.css';
 import Layout from './components/Layout';
 import Todos from './components/Todos';
 import TodoDetails from './components/TodoDetails';
+import TodoEditDetails from './components/TodoEditDetails';
 
 function App() {
   const all = useContext(TodoContext);
@@ -25,6 +26,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Todos />} />
             <Route path='/:id' element={<TodoDetails todos={todos} />} />
+            <Route path='/edit/:id' element={<TodoEditDetails todos={todos} />} />
+
           </Routes>
         </Router>
       </Layout>

@@ -17,12 +17,13 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { getOneTodo } from '../../services/api.services';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import EditIcon from '@mui/icons-material/Edit';
 
 function TodoDetails() {
   const { id } = useParams();
   const [todo, setTodo] = useState({});
-  useEffect( () => {
-    getOneTodo(id).then(result=> setTodo(result));
+  useEffect(() => {
+    getOneTodo(id).then((result) => setTodo(result));
   }, []);
   const [checkStatus, setCheckStatus] = useState(true);
   const creationDate = DateTime.fromISO(todo.createdAt).toLocaleString(
@@ -32,7 +33,7 @@ function TodoDetails() {
     DateTime.DATETIME_MED
   );
   return (
-    <div> 
+    <div>
       <Card sx={{ minWidth: 700, bgcolor: todo.isDone ? 'gray' : 'inherit' }}>
         <CardHeader
           avatar={
@@ -59,7 +60,7 @@ function TodoDetails() {
               sx={{
                 textDecoration: todo.isDone ? `line-through` : 'inherit',
                 fontWeight: 'bold',
-                fontSize: 25
+                fontSize: 25,
               }}
             >
               {todo.title}
@@ -82,12 +83,16 @@ function TodoDetails() {
           <Typography paragraph>Note:</Typography>
           <Typography paragraph>{todo.note}</Typography>
         </CardContent>
-      </Card> <IconButton
-    href='/'
-    sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
-  >
-    <KeyboardReturnIcon /> Back to list
-  </IconButton>
+      </Card>
+      <IconButton href='/' sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}>
+        <KeyboardReturnIcon /> Back to list
+      </IconButton>
+      <IconButton
+        href={`/edit/${id}`}
+        sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
+      >
+        <EditIcon /> Edit Todo
+      </IconButton>
     </div>
   );
 }
