@@ -17,6 +17,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { useNavigate } from 'react-router-dom';
 
 function Todo({ todo, setTodos, todos }) {
   const ExpandMore = styled((props) => {
@@ -52,13 +53,17 @@ function Todo({ todo, setTodos, todos }) {
       }
     );
   };
+
+  const navigate = useNavigate();
   return (
     <div className='todo-container'>
       <Card sx={{ minWidth: 500, bgcolor: todo.isDone ? 'gray' : 'inherit' }}>
         <CardHeader
           sx={{ padding: '0.2' }}
           avatar={
-            <IconButton href={`/${todo.id}`}>
+            <IconButton
+              onClick={() => navigate(`/test_technique_Sog/${todo.id}`)}
+            >
               <OpenInNewIcon />
             </IconButton>
           }

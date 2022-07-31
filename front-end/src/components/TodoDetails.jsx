@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getOneTodo } from '../../services/api.services';
@@ -31,6 +31,8 @@ function TodoDetails() {
   const dueDate = DateTime.fromISO(todo.dueDate)
     .setLocale('en-US')
     .toLocaleString({ month: 'long', day: 'numeric' });
+
+  const navigate = useNavigate();
   return (
     <div>
       <Card sx={{ minWidth: 700, bgcolor: todo.isDone ? 'gray' : 'inherit' }}>
@@ -69,11 +71,14 @@ function TodoDetails() {
           <Typography paragraph>{todo.note}</Typography>
         </CardContent>
       </Card>
-      <IconButton href='/' sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}>
+      <IconButton
+        onClick={() => navigate(`/test_technique_Sog/`)}
+        sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
+      >
         <KeyboardReturnIcon /> Back to list
       </IconButton>
       <IconButton
-        href={`/edit/${id}`}
+        onClick={() => navigate(`/test_technique_Sog/edit/${id}`)}
         sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
       >
         <EditIcon /> Edit Todo

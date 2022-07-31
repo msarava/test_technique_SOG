@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 const Api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL:
+    import.meta.env.MODE === 'production'
+      ? import.meta.env.VITE_BACKEND_URL_PROD
+      : import.meta.env.VITE_BACKEND_URL,
 });
 const config = {
   headers: {

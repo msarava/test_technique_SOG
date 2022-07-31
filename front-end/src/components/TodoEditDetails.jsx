@@ -41,7 +41,7 @@ function TodoEditDetails() {
   const handleSave = (event) => {
     event.preventDefault();
     updateTodo(newTodo, id);
-    navigate(`/${id}`);
+    navigate(`/test_technique_Sog/${id}`);
   };
   return (
     <div>
@@ -77,7 +77,7 @@ function TodoEditDetails() {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='dueDate'>
-            <ScheduleIcon />{' '}
+            <ScheduleIcon />
           </IconButton>
           <TextField
             name='dueDate'
@@ -106,9 +106,9 @@ function TodoEditDetails() {
         sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
       >
         <SaveIcon /> Save
-      </IconButton>{' '}
+      </IconButton>
       <IconButton
-        href={`/${id}`}
+        onClick={() => navigate(`/test_technique_Sog/${id}`)}
         sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
       >
         <ClearIcon /> Cancel
