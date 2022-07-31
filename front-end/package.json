@@ -1,6 +1,7 @@
 {
   "name": "front-end",
   "private": true,
+  "homepage": "https://msarava.github.io/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
