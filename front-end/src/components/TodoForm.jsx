@@ -1,23 +1,15 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
+import { useState } from 'react';
+import '../styles/Todo.css';
+import { createTodo } from '../../services/api.services';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState } from 'react';
-import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { Button, TextField } from '@mui/material';
 import ScheduleIcon from '@mui/icons-material/Schedule';
-import { DateTime } from 'luxon';
-import '../styles/Todo.css';
-import { createTodo } from '../../services/api.services';
 
 export default function TodoForm({ setShowForm, showForm, setTodos, todos }) {
   const [newTodo, setNewTodo] = useState({
@@ -32,7 +24,9 @@ export default function TodoForm({ setShowForm, showForm, setTodos, todos }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    createTodo(newTodo).then((createdTodo) => setTodos([...todos, createdTodo]));
+    createTodo(newTodo).then((createdTodo) =>
+      setTodos([...todos, createdTodo])
+    );
     setShowForm(!showForm);
   };
   return (

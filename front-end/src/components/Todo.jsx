@@ -1,22 +1,21 @@
 import React from 'react';
+import { useState } from 'react';
+import { DateTime } from 'luxon';
+import '../styles/Todo.css';
+import { getTodos, updateTodo } from '../../services/api.services';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useState } from 'react';
-import { Button, Checkbox, FormControlLabel } from '@mui/material';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ScheduleIcon from '@mui/icons-material/Schedule';
-import { DateTime } from 'luxon';
-import '../styles/Todo.css';
-import { getTodos, updateTodo } from '../../services/api.services';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 function Todo({ todo, setTodos, todos }) {
@@ -30,12 +29,15 @@ function Todo({ todo, setTodos, todos }) {
       duration: theme.transitions.duration.shortest,
     }),
   }));
-  const creationDate = DateTime.fromISO(todo.createdAt).toLocaleString(
-    DateTime.DATETIME_MED
-  );
-  const dueDate = DateTime.fromISO(todo.dueDate).toLocaleString(
-    DateTime.DATETIME_MED
-  );
+  const creationDate = DateTime.fromISO(todo.createdAt)
+    .setLocale('en-US')
+    .toLocaleString({
+      month: 'long',
+      day: 'numeric',
+    });
+  const dueDate = DateTime.fromISO(todo.dueDate)
+    .setLocale('en-US')
+    .toLocaleString({ month: 'long', day: 'numeric' });
   const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -53,7 +55,8 @@ function Todo({ todo, setTodos, todos }) {
   return (
     <div className='todo-container'>
       <Card sx={{ minWidth: 500, bgcolor: todo.isDone ? 'gray' : 'inherit' }}>
-        <CardHeader sx={{padding:'0.2'}}
+        <CardHeader
+          sx={{ padding: '0.2' }}
           avatar={
             <IconButton href={`/${todo.id}`}>
               <OpenInNewIcon />
@@ -78,7 +81,7 @@ function Todo({ todo, setTodos, todos }) {
               sx={{
                 textDecoration: todo.isDone ? `line-through` : 'inherit',
                 fontWeight: 'bold',
-                fontSize: 20
+                fontSize: 20,
               }}
             >
               {todo.title}

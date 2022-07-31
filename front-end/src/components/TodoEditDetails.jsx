@@ -1,4 +1,9 @@
 import React from 'react';
+import { DateTime } from 'luxon';
+import '../styles/Todo.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getOneTodo, updateTodo } from '../../services/api.services';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -6,17 +11,8 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { TextField } from '@mui/material';
 import ScheduleIcon from '@mui/icons-material/Schedule';
-import { DateTime } from 'luxon';
-import '../styles/Todo.css';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { getOneTodo, updateTodo } from '../../services/api.services';
-import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import ClearIcon from '@mui/icons-material/Clear';
 import SaveIcon from '@mui/icons-material/Save';
 
@@ -26,12 +22,12 @@ function TodoEditDetails() {
   useEffect(() => {
     getOneTodo(id).then((result) => setTodo(result));
   }, []);
-  const creationDate = DateTime.fromISO(todo.createdAt).toLocaleString(
-    DateTime.DATETIME_MED
-  );
-  const dueDate = DateTime.fromISO(todo.dueDate).toLocaleString(
-    DateTime.DATETIME_MED
-  );
+  const creationDate = DateTime.fromISO(todo.createdAt)
+    .setLocale('en-US')
+    .toLocaleString({
+      month: 'long',
+      day: 'numeric',
+    });
   const [newTodo, setNewTodo] = useState({
     title: '',
     dueDate: '',
