@@ -8,6 +8,8 @@ router.post("/todo", TodoController.create);
 router.get("/todo", TodoController.getAll);
 router.put("/todo/:id", TodoController.updateOne);
 router.get("/todo/:id", TodoController.getOne);
+router.delete("/todo/:id", TodoController.deleteOne);
+
 
 
 

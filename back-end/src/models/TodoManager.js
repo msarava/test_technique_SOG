@@ -19,6 +19,10 @@ const TodoShema = {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  note: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 };
 const TodoModel = sequelize.define('todo', TodoShema);
 
