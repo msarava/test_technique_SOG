@@ -25,9 +25,8 @@ function App() {
         <Router>
           <Routes>
             <Route path='/' element={<Todos />} />
-            <Route path='/:id' element={<TodoDetails todos={todos} />} />
-            <Route path='/edit/:id' element={<TodoEditDetails todos={todos} />} />
-
+            <Route path='/:id' element={<TodoDetails />} />
+            <Route path='/edit/:id' element={<TodoEditDetails />} />
           </Routes>
         </Router>
       </Layout>
