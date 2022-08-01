@@ -1,3 +1,20 @@
+# Introduction
+
+This is a technical challenge to candidate in Sogeti company.
+
+### Front-End
+- HTML, CSS, React and [MUI](https://mui.com/) librairies to make it simple and fast.
+- Deployment using gh-pages package for [Github Pages](https://msarava.github.io/test_technique_Sog/)
+
+### Back-End
+- Node.Js with Express
+- Deployment using [Heroku](https://todotestsog.herokuapp.com/)
+
+### Database
+[Sqlite3 library](https://www.npmjs.com/package/sqlite3) and [Sequelize ORM](https://sequelize.org/)
+
+***
+
 # Context
 Our fantastic product owner has a wonderful, amazing and revolutionary idea... he wants to build a new Todo application. 
 He has a good idea of the application behavior and comes with a backlog containing the following user stories :
