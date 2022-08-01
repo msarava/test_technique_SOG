@@ -28,19 +28,14 @@ function TodoEditDetails() {
       month: 'long',
       day: 'numeric',
     });
-  const [newTodo, setNewTodo] = useState({
-    title: '',
-    dueDate: '',
-    description: '',
-    note: '',
-  });
+
   const handleChange = (event) => {
-    setNewTodo({ ...newTodo, [event.target.name]: event.target.value });
+    setTodo({ ...todo, [event.target.name]: event.target.value });
   };
   const navigate = useNavigate();
   const handleSave = (event) => {
     event.preventDefault();
-    updateTodo(newTodo, id).then(() => navigate(`/test_technique_Sog/${id}`));
+    updateTodo(todo, id).then(() => navigate(`/test_technique_Sog/${id}`));
   };
   return (
     <div>
@@ -54,7 +49,7 @@ function TodoEditDetails() {
           title={
             <TextField
               name='title'
-              value={newTodo.title}
+              value={todo.title}
               fullWidth
               sx={{ fontWeight: 'bold' }}
               placeholder={todo.title}
@@ -66,11 +61,10 @@ function TodoEditDetails() {
         <CardContent>
           <TextField
             name='description'
-            value={newTodo.description}
+            value={todo.description}
             fullWidth
             multiline
             rows={4}
-            placeholder={todo.description}
             onChange={handleChange}
           />
         </CardContent>
@@ -80,9 +74,8 @@ function TodoEditDetails() {
           </IconButton>
           <TextField
             name='dueDate'
-            value={newTodo.dueDate}
+            value={todo.dueDate}
             type='date'
-            placeholder=''
             helperText='Please enter the limit date'
             onChange={handleChange}
           />
@@ -91,11 +84,10 @@ function TodoEditDetails() {
           <Typography paragraph>Note:</Typography>
           <TextField
             name='note'
-            value={newTodo.note}
+            value={todo.note}
             fullWidth
             multiline
             rows={2}
-            placeholder={todo.note}
             onChange={handleChange}
           />
         </CardContent>
