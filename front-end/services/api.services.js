@@ -34,3 +34,9 @@ export async function updateTodo(updateTodo, id) {
   const results = Api.put(url, updateTodo).then((response) => response.data);
   return results;
 }
+
+export async function deleteTodo(id) {
+  const url = `/todo/${id}`;
+  const results = Api.delete(url).then((response) => response.data);
+  return results;
+}

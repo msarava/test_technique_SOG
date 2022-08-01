@@ -3,7 +3,11 @@ import { DateTime } from 'luxon';
 import '../styles/Todo.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getOneTodo, updateTodo } from '../../services/api.services';
+import {
+  deleteTodo,
+  getOneTodo,
+  updateTodo,
+} from '../../services/api.services';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -15,6 +19,7 @@ import { TextField } from '@mui/material';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import ClearIcon from '@mui/icons-material/Clear';
 import SaveIcon from '@mui/icons-material/Save';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 function TodoEditDetails() {
   const { id } = useParams();
@@ -36,6 +41,10 @@ function TodoEditDetails() {
   const handleSave = (event) => {
     event.preventDefault();
     updateTodo(todo, id).then(() => navigate(`/test_technique_Sog/${id}`));
+  };
+
+  const handleDelete = () => {
+    deleteTodo(todo.id).then(() => navigate(`/test_technique_Sog`));
   };
   return (
     <div>
@@ -97,6 +106,12 @@ function TodoEditDetails() {
         sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
       >
         <SaveIcon /> Save
+      </IconButton>
+      <IconButton
+        onClick={handleDelete}
+        sx={{ '& .MuiSvgIcon-root': { fontSize: 45 } }}
+      >
+        <DeleteForeverIcon /> Delete
       </IconButton>
       <IconButton
         onClick={() => navigate(`/test_technique_Sog/${id}`)}
